@@ -1,3 +1,16 @@
-﻿@{
-    Layout = "_Layout";
+﻿@using System.Security.Claims
+@{
+    if (Context.User.FindFirst("Role") != null)
+    {
+        switch (Context.User.FindFirstValue("Role"))
+        {
+            case "Common_User":
+                Layout = "_Layout";
+                break;
+        }
+    }
+    else
+    {
+        Layout = "NULL_Layout";
+    }
 }

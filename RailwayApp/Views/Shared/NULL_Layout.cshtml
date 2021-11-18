@@ -27,20 +27,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Registration">Registration</a>
-                        </li><li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
                         </li>
-                    </ul>
-                </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="m-2">
-                            <a asp-controller="User" asp-action="Details" asp-route-email="@Context.User.FindFirst(ClaimsIdentity.DefaultNameClaimType).Value">
-                                <label>@Context.User.FindFirstValue("NameUser")</label>
-                            </a> 
-                        </li> 
-                        <li>
-                           <a class="btn btn-primary" asp-controller="User" asp-action="Logout">Sign Out</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
                         </li>
                     </ul>
                 </div>
