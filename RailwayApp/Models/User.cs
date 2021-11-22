@@ -8,11 +8,11 @@ namespace RailwayApp.Models
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Обязательное поле")]
         [MinLength(2, ErrorMessage = "Минимальная длина поля-2 символов")]
-        [RegularExpression(@"[^0-9]+", ErrorMessage = "Некорректная Фамилия")]
+        [RegularExpression(@"(\S[^0-9])+", ErrorMessage = "Некорректное имя")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Обязательное поле")]
         [MinLength(2, ErrorMessage = "Минимальная длина поля-2 символов")]
-        [RegularExpression(@"[^0-9]+", ErrorMessage = "Некорректное Имя ")]
+        [RegularExpression(@"(\S[^0-9])+", ErrorMessage = "Некорректная фамилия")]
         public string Surname { get; set; }
         public DateTime DataBorn { get; set; }
         public int Year { get; set; }
@@ -25,6 +25,7 @@ namespace RailwayApp.Models
         [RegularExpression(@"[A-Z]{2}[0-9]+", ErrorMessage = "Некорректный номер паспорта, пример: AA0000000")]
         public string PassportNumber { get; set; }
         public string Country { get; set; }
+        public string City { get; set; }
         public string Password { get; set; }
         public string EmailUser { get; set; }
         

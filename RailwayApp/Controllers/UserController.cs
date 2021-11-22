@@ -60,7 +60,7 @@ namespace RailwayApp.Controllers
             var user = _userService.Get().FirstOrDefault(u => u.EmailUser == use.EmailUser && u.Password == use.Password);
             if (user != null)
             {
-                this.Authenticate(user);
+                Authenticate(user);
                 return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError("", "Некорректные логин и(или) пароль");

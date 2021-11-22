@@ -9,5 +9,6 @@ namespace RailwayApp.Models
     {
         public Guid RoleId { get; set; }
         public string RoleName { get; set; }
+        public int RoleIndex { get; set; }
     }
 }

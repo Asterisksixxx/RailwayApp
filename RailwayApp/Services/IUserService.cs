@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
+using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
 using RailwayApp.Data;
 using RailwayApp.Models;
@@ -56,7 +56,13 @@ namespace RailwayApp.Services
 
         public async Task CreateAsync(User user)
         {
-            user.Role = _appDataContext.Roles.FirstOrDefaultAsync(n => n.RoleName == "Common_User").Result;
+            user.Year = Convert.ToInt32(DateTime.Now.Year) - Convert.ToInt32(user.DataBorn.Year);
+            //var locationResponse = new WebClient().DownloadString("https://ipstack.com/");
+            //var responseXml = XDocument.Parse(locationResponse)
+            //    .Element("Response");
+            //user.City = responseXml.Element("City").Value;
+            //user.Country = responseXml.Element("CountryName").Value;
+            user.Role = _appDataContext.Roles.FirstOrDefaultAsync(n => n.RoleName == "COMMON_USER").Result;
             await _appDataContext.AddAsync(user);
             await _appDataContext.SaveChangesAsync();
         }

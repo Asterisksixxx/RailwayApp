@@ -32,6 +32,7 @@ namespace RailwayApp
                     options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
                 });
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IOrderService, OrderService>();
         }
 
         

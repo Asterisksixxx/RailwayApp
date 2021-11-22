@@ -11,5 +11,10 @@ namespace RailwayApp.Data
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Train> Trains { get; set; }
+        public DbSet<Route> Routes { get; set; }
+        public DbSet<Station> Stations { get; set; }
+        
     }
 }
