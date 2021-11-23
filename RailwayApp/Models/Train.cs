@@ -7,7 +7,8 @@ namespace RailwayApp.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public decimal TicketCount { get; set; }
+        public decimal TicketCost { get; set; }
         public string AvailableSeats { get; set; }
+        public string Type { get; set; }
     }
 }

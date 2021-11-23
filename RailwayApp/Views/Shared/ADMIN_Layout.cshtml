@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RailwayApp</title>
+    <title>@ViewData["Title"] - DreamSoft Admin</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RailwayApp</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DreamSoft Admin</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -31,17 +31,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Авторизация</a>
                         </li>
-                    </ul>
-                </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="m-2">
-                            <a asp-controller="User" asp-action="Details" asp-route-email="@Context.User.FindFirst(ClaimsIdentity.DefaultNameClaimType).Value">
-                                <label>@Context.User.FindFirstValue("NameUser")</label>
-                            </a> 
-                        </li> 
-                        <li>
-                           <a class="btn btn-primary" asp-controller="User" asp-action="Logout">Sign Out</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Station" asp-action="Index">Управление станциями</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Train" asp-action="Index">Управление поездами</a>
                         </li>
                     </ul>
                 </div>
@@ -56,7 +50,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - RailwayApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - RailwayApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Политика</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

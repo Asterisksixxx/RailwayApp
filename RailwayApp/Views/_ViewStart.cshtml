@@ -4,7 +4,16 @@
     {
         switch (Context.User.FindFirstValue("Role"))
         {
-            case "COMMON_USER":
+            case "0":
+                Layout = "NULL_Layout";
+                break;
+            case "1":
+                Layout = "_Layout";
+                break;
+            case "2":
+                Layout = "ADMIN_Layout";
+                break;
+            case "3":
                 Layout = "_Layout";
                 break;
         }

@@ -7,10 +7,7 @@ namespace RailwayApp.Models
     {
         public Guid Id { get; set; }
         public List<Train> TrainsList { get; set; }
-        public Guid StartStationId { get; set; }
-        public Station StartStation { get; set; }
-        public Guid LastStationId { get; set; }
-        public Station LastStation { get; set; }
+        public List<Station> StationList { get; set; }
         public DateTime StartRouteDateTime { get; set; }
         public DateTime EndRouteDateTime { get; set; }
     }

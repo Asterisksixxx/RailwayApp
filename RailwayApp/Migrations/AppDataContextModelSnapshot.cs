@@ -69,20 +69,10 @@ namespace RailwayApp.Migrations
                     b.Property<DateTime>("EndRouteDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("LastStationId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("StartRouteDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("StartStationId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("LastStationId");
-
-                    b.HasIndex("StartStationId");
 
                     b.ToTable("Routes");
                 });
@@ -122,8 +112,11 @@ namespace RailwayApp.Migrations
                     b.Property<Guid?>("RouteId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("TicketCount")
+                    b.Property<decimal>("TicketCost")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -182,6 +175,21 @@ namespace RailwayApp.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("RouteStation", b =>
+                {
+                    b.Property<Guid>("RouteListId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StationListId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("RouteListId", "StationListId");
+
+                    b.HasIndex("StationListId");
+
+                    b.ToTable("RouteStation");
+                });
+
             modelBuilder.Entity("RailwayApp.Models.Order", b =>
                 {
                     b.HasOne("RailwayApp.Models.Route", "OrderRoute")
@@ -201,25 +209,6 @@ namespace RailwayApp.Migrations
                     b.Navigation("OrderUser");
                 });
 
-            modelBuilder.Entity("RailwayApp.Models.Route", b =>
-                {
-                    b.HasOne("RailwayApp.Models.Station", "LastStation")
-                        .WithMany()
-                        .HasForeignKey("LastStationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RailwayApp.Models.Station", "StartStation")
-                        .WithMany()
-                        .HasForeignKey("StartStationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LastStation");
-
-                    b.Navigation("StartStation");
-                });
-
             modelBuilder.Entity("RailwayApp.Models.Train", b =>
                 {
                     b.HasOne("RailwayApp.Models.Route", null)
@@ -236,6 +225,21 @@ namespace RailwayApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("RouteStation", b =>
+                {
+                    b.HasOne("RailwayApp.Models.Route", null)
+                        .WithMany()
+                        .HasForeignKey("RouteListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RailwayApp.Models.Station", null)
+                        .WithMany()
+                        .HasForeignKey("StationListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RailwayApp.Models.Route", b =>

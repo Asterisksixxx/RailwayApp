@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RailwayApp.Migrations
 {
-    public partial class newIndex : Migration
+    public partial class NewRoute : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,6 +18,19 @@ namespace RailwayApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.RoleId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Routes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StartRouteDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndRouteDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Routes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -63,27 +76,46 @@ namespace RailwayApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Routes",
+                name: "Trains",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StartStationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LastStationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StartRouteDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndRouteDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TicketCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AvailableSeats = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Routes", x => x.Id);
+                    table.PrimaryKey("PK_Trains", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Routes_Stations_LastStationId",
-                        column: x => x.LastStationId,
-                        principalTable: "Stations",
+                        name: "FK_Trains_Routes_RouteId",
+                        column: x => x.RouteId,
+                        principalTable: "Routes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RouteStation",
+                columns: table => new
+                {
+                    RouteListId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StationListId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RouteStation", x => new { x.RouteListId, x.StationListId });
+                    table.ForeignKey(
+                        name: "FK_RouteStation_Routes_RouteListId",
+                        column: x => x.RouteListId,
+                        principalTable: "Routes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Routes_Stations_StartStationId",
-                        column: x => x.StartStationId,
+                        name: "FK_RouteStation_Stations_StationListId",
+                        column: x => x.StationListId,
                         principalTable: "Stations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -115,27 +147,6 @@ namespace RailwayApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Trains",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TicketCount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AvailableSeats = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RouteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Trains", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Trains_Routes_RouteId",
-                        column: x => x.RouteId,
-                        principalTable: "Routes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_OrderRouteId",
                 table: "Orders",
@@ -147,14 +158,9 @@ namespace RailwayApp.Migrations
                 column: "OrderUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Routes_LastStationId",
-                table: "Routes",
-                column: "LastStationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Routes_StartStationId",
-                table: "Routes",
-                column: "StartStationId");
+                name: "IX_RouteStation_StationListId",
+                table: "RouteStation",
+                column: "StationListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trains_RouteId",
@@ -173,19 +179,22 @@ namespace RailwayApp.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
+                name: "RouteStation");
+
+            migrationBuilder.DropTable(
                 name: "Trains");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
+                name: "Stations");
+
+            migrationBuilder.DropTable(
                 name: "Routes");
 
             migrationBuilder.DropTable(
                 name: "Roles");
-
-            migrationBuilder.DropTable(
-                name: "Stations");
         }
     }
 }

@@ -62,7 +62,7 @@ namespace RailwayApp.Services
             //    .Element("Response");
             //user.City = responseXml.Element("City").Value;
             //user.Country = responseXml.Element("CountryName").Value;
-            user.Role = _appDataContext.Roles.FirstOrDefaultAsync(n => n.RoleName == "COMMON_USER").Result;
+            user.Role = await _appDataContext.Roles.FirstOrDefaultAsync(n => n.RoleIndex == 1);
             await _appDataContext.AddAsync(user);
             await _appDataContext.SaveChangesAsync();
         }
@@ -86,7 +86,7 @@ namespace RailwayApp.Services
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.EmailUser),
                 new Claim("NameUser", user.Name),
-                new Claim("Role",_appDataContext.Roles.FirstOrDefault(r=>r.RoleId==user.RoleId).RoleName)
+                new Claim("Role",_appDataContext.Roles.FirstOrDefault(r=>r.RoleId==user.RoleId).RoleIndex.ToString())
             };
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
