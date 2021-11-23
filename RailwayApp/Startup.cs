@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,8 +24,21 @@ namespace RailwayApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            string conString = "";
+            switch (Environment.MachineName)
+            {
+                case "DESKTOP-KVLB56K":
+                    conString = "DCDESKTOP-KVLB56K";
+                    break;
+                case "ASTERISK_PC":
+                    conString = "DCASTERISK_PC";
+                    break;
+                default:
+                    conString = "DCDESKTOP-KVLB56K";
+                    break;
+            }
             services.AddDbContext<AppDataContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DC")));
+                options.UseSqlServer(Configuration.GetConnectionString(conString)));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
