@@ -49,6 +49,7 @@ namespace RailwayApp
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IStationService,StationService>();
             services.AddTransient<ITrainService, TrainService>();
+            services.AddTransient<IRouteService, RouteService>();
 
         }
 

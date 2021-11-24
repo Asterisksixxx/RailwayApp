@@ -40,8 +40,14 @@ namespace RailwayApp.Controllers
             await _stationService.CreateAsync(station);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            return View(await _stationService.GetAsync(id));
+        }
         [HttpPost]
-        public async Task<IActionResult> UpdateAsync(Station station)
+        public async Task<IActionResult> Update(Station station)
         {
             await _stationService.UpdateAsync(station);
             return RedirectToAction("Index");

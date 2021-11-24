@@ -42,6 +42,10 @@ namespace RailwayApp.Services
 
        public async Task CreateAsync(Train train)
        {
+           for (var i = 1; i <= train.SeatsCount; i++)
+           {
+               train.AvailableSeats += $"{i} ";
+           }
            await Task.Run(() => _appDataContext.Trains.AddAsync(train));
            await _appDataContext.SaveChangesAsync();
        }

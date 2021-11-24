@@ -1,20 +1,26 @@
 ﻿@model IEnumerable<Train>
 <h6>Список поездов</h6>
-<div class="row">
-    <div class="col-2">Train Name</div>
-    <div class="col-2">TicketCost</div>
-    <div class="col-2">Country</div>
-    <div class="col-2">
-        <a asp-controller="Train" asp-action="CreateAsync">Создать новый поезд</a>
+<div class="row border mb-3">
+    <div class="col-2">Название поезда</div>
+    <div class="col-2">Стоимость билета</div>
+    <div class="col-2">Тип поезда</div>
+    <div class="col-2">Количество мест</div>
+    <div class="col-3">
+        <a asp-controller="Train" asp-action="Create">Создать новый поезд</a>
     </div>
 </div>
 @foreach (var train in Model)
 {
-    <div class="row">
+    <div class="row border m-2">
         <div class="col-2">@train.Name</div>
-        <div class="col-2">@train.TicketCost</div>
+        <div class="col-2">@train.TicketCost руб</div>
+        <div class="col-2">@train.Type</div>
+        <div class="col-2">@train.SeatsCount</div>
+        <div class="col-3">
+            <a asp-controller="Train" asp-action="Delete" asp-route-id="@train.Id">Удалить</a>
+        </div>
         <div class="col-2">
-            <a asp-controller="Station" asp-action="Delete" asp-route-id="@train.Id">Удалить</a>
+            <a asp-controller="Train" asp-action="Update" asp-route-id="@train.Id">Изменить</a>
         </div>
     </div>
 }
