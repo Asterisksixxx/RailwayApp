@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Order>  
+<div class="row">
+    <div class="col-2">Наименование маршрута</div>
+    <div class="col-2">Наименование поезда</div>
+    <div class="col-2">Выбранные места</div>
+    <div class="col-2">Время отправления</div>
+    <div class="col-2">Время прибытия</div>
+</div>
+@foreach (var order in Model)
+{
+    <div class="row">
+        <div class="col-2">@order.OrderRoute.Name</div>
+        <div class="col-2">@order.ChangeTrain.Name</div>
+        <div class="col-2">@order.ReserveSeat</div>
+        <div class="col-2">@order.OrderRoute.StartRouteDateTime</div>
+        <div class="col-2">@order.OrderRoute.EndRouteDateTime</div>
+    </div>
+}

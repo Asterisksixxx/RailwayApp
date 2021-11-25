@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace RailwayApp.Models
         public Guid OrderUserId { get; set; }
         public Route OrderRoute { get; set; }
         public Guid OrderRouteId { get; set; }
-        public string ReserveSeat { get; set; } 
+        public string ReserveSeat { get; set; }
+        public Train ChangeTrain { get; set; }
     }
 }

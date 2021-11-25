@@ -12,6 +12,7 @@ namespace RailwayApp.Services
     {
       Task<IEnumerable<Order>>  GetAsync();
         Task<Order> GetAsync(Guid id);
+       Task<IEnumerable<Order>> GetAsync(string email);
         Task Delete(Guid id);
         Task CreateAsync(Order order);
         Task UpdateAsync(Order order);
@@ -34,8 +35,11 @@ namespace RailwayApp.Services
         public async Task<Order> GetAsync(Guid id)
         {
             return await Task.Run(() => _appDataContext.Orders.FirstOrDefaultAsync(o => o.Id == id));
+        } 
+        public async Task<IEnumerable<Order>> GetAsync(string email)
+        {
+            return await Task.Run(() => _appDataContext.Orders.Where(o => o.OrderUser.EmailUser == email));
         }
-
         public Task Delete(Guid id)
         {
             return Task.Run(() => _appDataContext.Orders.Remove(_appDataContext.Orders.FirstOrDefault(o => o.Id == id))); 
