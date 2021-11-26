@@ -1,6 +1,6 @@
-﻿@model IEnumerable<Station>
+﻿@model RailwayApp.ViewModels.StationList
 <h6>Список станций</h6>
-<div class="row">
+<div class="row border mb-3">
     <div class="col-2">Название станции</div>
     <div class="col-2">Населённый пункт</div>
     <div class="col-2">Страна</div>
@@ -8,15 +8,17 @@
         <a asp-controller="Station" asp-action="Create">Создать новую станцию</a>
     </div>
 </div>
-@foreach (var station in Model)
+@foreach (var station in Model.Stations)
 {
-    <div class="row">
+    <div class="row border mb-3">
         <div class="col-2">@station.Name</div>
         <div class="col-2">@station.Region</div>
         <div class="col-2">@station.Country</div>
-        <div class="col-2">
-            <a asp-controller="Station" asp-action="Delete" asp-route-id="@station.Id">Удалить</a>
-        </div>
+        <form asp-controller="Station" asp-action="Delete" method="post">
+            <div class="col-2">
+                <input class="btn btn-primary" type="submit" value="@station.Id" asp-for="@Model.CurrentStation"/>
+            </div>
+        </form>
         <div class="col-2">
             <a asp-controller="Station" asp-action="Update" asp-route-id="@station.Id">Изменить</a>
         </div>

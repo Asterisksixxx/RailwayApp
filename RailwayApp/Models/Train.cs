@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RailwayApp.Models
@@ -12,6 +11,8 @@ namespace RailwayApp.Models
         public string AvailableSeats { get; set; }
         [Required]
         public int SeatsCount { get; set; }
+        //public Route Route { get; set; }
+        //public Guid RouteId { get; set; }
         public string Type { get; set; }
     }
 }

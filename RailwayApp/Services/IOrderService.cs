@@ -16,15 +16,20 @@ namespace RailwayApp.Services
         Task Delete(Guid id);
         Task CreateAsync(Order order);
         Task UpdateAsync(Order order);
+        IEnumerable<Route> GetRoute(Guid firstGuid, Guid secondGuid);
     }
 
     public class OrderService : IOrderService
     {
         private readonly AppDataContext _appDataContext;
+        private readonly IStationService _stationService;
+        private readonly IUserService _userService;
 
-        public OrderService(AppDataContext appDataContext)
+        public OrderService(AppDataContext appDataContext, IStationService stationService, IUserService userService)
         {
             _appDataContext = appDataContext;
+            _stationService = stationService;
+            _userService = userService;
         }
 
         public async Task<IEnumerable<Order>> GetAsync()
@@ -38,7 +43,8 @@ namespace RailwayApp.Services
         } 
         public async Task<IEnumerable<Order>> GetAsync(string email)
         {
-            return await Task.Run(() => _appDataContext.Orders.Where(o => o.OrderUser.EmailUser == email));
+            Guid oui =await _userService.GetAsyncId(email);
+            return await Task.Run(() => _appDataContext.Orders.Include(o=>o.OrderRoute).Include(o=>o.ChangeTrain).Where(o => o.OrderUserId==oui));
         }
         public Task Delete(Guid id)
         {
@@ -56,5 +62,13 @@ namespace RailwayApp.Services
            _appDataContext.Orders.Update(order);
           await  _appDataContext.SaveChangesAsync();
         }
-    }
+
+        public IEnumerable<Route> GetRoute(Guid firstGuid, Guid secondGuid)
+        {
+            var spisok= _appDataContext.Routes.Include(r => r.StationList);
+               var spisachek= spisok.Where(r => (
+                r.StationList.FirstOrDefault(station => station.Id == firstGuid) != null && r.StationList.FirstOrDefault(station => station.Id == secondGuid) != null));
+            return spisachek;
+        }
+    }   
 }

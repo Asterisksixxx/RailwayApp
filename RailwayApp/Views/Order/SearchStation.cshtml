@@ -1,0 +1,25 @@
+﻿@model RailwayApp.ViewModels.SearchStation
+
+<form asp-action="SearchStation" method="post">
+    <div class="row align-content-center">
+        <div class="col-2">
+            <label>Первая станция</label>
+        </div> 
+        <div class="col-2">
+            <label>Конечная станция</label>
+        </div>  
+    </div>
+    <div class="row align-content-center">
+        <div class="col-2">
+            <select asp-for="FirstStation" class="form-control" asp-items="@ViewBag.Station"></select>
+        </div> 
+        <div class="col-2">
+            <select asp-for="SecondStation" class="form-control" asp-items="@ViewBag.Station"></select>
+        </div> 
+        <div class="col-2">
+            <input class="btn btn-primary" type="submit"/>
+        </div> 
+
+    </div>
+    
+</form>

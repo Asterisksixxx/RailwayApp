@@ -16,6 +16,7 @@ namespace RailwayApp.Services
         IEnumerable<User> Get();
         bool Check(string name, string email, string login);
        Task<User>GetAsync(Guid id);
+       Task<Guid>GetAsyncId(string email);
        Task<User>GetAsync(string email);
         Task CreateAsync(User user);
         Task Update(User user);
@@ -49,6 +50,13 @@ namespace RailwayApp.Services
         {
            return await _appDataContext.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
+
+        public async Task<Guid> GetAsyncId(string email)
+        {
+          var user= await _appDataContext.Users.FirstOrDefaultAsync(u => u.EmailUser == email);
+          return user.Id;
+        }
+
         public async Task<User> GetAsync(string email)
         {
             return await _appDataContext.Users.FirstOrDefaultAsync(u => u.EmailUser == email);

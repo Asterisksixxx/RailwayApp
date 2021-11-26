@@ -1,0 +1,5 @@
+﻿@model RailwayApp.ViewModels.RoutId
+<form asp-action="SearchRoute" method="post">
+    <select asp-for="RouteId" asp-items="@ViewBag.Routes"></select>
+    <input class="btn btn-primary" type="submit"/>
+</form>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using RailwayApp.Models;
 using RailwayApp.Services;
+using RailwayApp.ViewModels;
 
 namespace RailwayApp.Controllers
 {
@@ -17,7 +18,8 @@ namespace RailwayApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _trainService.GetAsync());
+            TrainList trains=new TrainList{Trains = await _trainService.GetAsync()};
+            return View(trains);
         }
 
         [HttpGet]
@@ -32,11 +34,12 @@ namespace RailwayApp.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(TrainList trainList)
         {
-            _trainService.Delete(id);
+            _trainService.Delete(trainList.CurrentGuid);
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public async Task<IActionResult> Update(Guid id)
         {

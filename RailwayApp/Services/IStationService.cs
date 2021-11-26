@@ -12,7 +12,7 @@ namespace RailwayApp.Services
     {
         Task<IEnumerable<Station>> GetAsync();
         Task<Station> GetAsync(Guid id);
-        Task Delete(Guid id);
+        void Delete(Guid id);
         Task CreateAsync(Station station);
         Task UpdateAsync(Station station);
     }
@@ -35,9 +35,10 @@ namespace RailwayApp.Services
            return await Task.Run(() => _appDataContext.Stations.FirstOrDefaultAsync(o => o.Id == id));
        }
 
-       public Task Delete(Guid id)
+       public void Delete(Guid id)
        {
-           return Task.Run(() => _appDataContext.Stations.Remove(_appDataContext.Stations.FirstOrDefault(o => o.Id == id)));
+            _appDataContext.Stations.Remove(_appDataContext.Stations.FirstOrDefault(o => o.Id == id));
+           _appDataContext.SaveChanges(); 
        }
 
        public async Task CreateAsync(Station station)

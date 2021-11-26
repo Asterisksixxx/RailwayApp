@@ -1,0 +1,21 @@
+﻿@model RailwayApp.ViewModels.Order_Train
+<div class="row border m-2">
+    <div class="col-2">Наименование маршрута</div>
+    <div class="col-2">Время отвправления</div>
+    <div class="col-2">Время Прибытия</div>
+    <div class="col-2">Выберите поезд</div>
+</div>
+<div class="row border m-2">
+    <div class="col-2">@Model.Route.Name</div>
+    <div class="col-2">@Model.Route.StartRouteDateTime.TimeOfDay</div>
+    <div class="col-2">@Model.Route.EndRouteDateTime.TimeOfDay</div>
+    <div class="col-2">
+        <form asp-controller="Order" asp-action="ChangeTrain" method="post">
+            <input type="hidden" asp-for="RouteId" value="@Model.RouteId"/>
+            <select asp-for="Train" asp-items="@ViewBag.Trains"></select>
+            <input class="btn btn-primary" type="submit" value="Выбрать поезд"/>
+        </form>
+    </div>
+</div>
+
+   

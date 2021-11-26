@@ -10,8 +10,8 @@ using RailwayApp.Data;
 namespace RailwayApp.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20211122155932_NewRoute")]
-    partial class NewRoute
+    [Migration("20211126151217_Train")]
+    partial class Train
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace RailwayApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ChangeTrainId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("OrderRouteId")
                         .HasColumnType("uniqueidentifier");
 
@@ -37,6 +40,8 @@ namespace RailwayApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChangeTrainId");
 
                     b.HasIndex("OrderRouteId");
 
@@ -70,6 +75,9 @@ namespace RailwayApp.Migrations
 
                     b.Property<DateTime>("EndRouteDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartRouteDateTime")
                         .HasColumnType("datetime2");
@@ -113,6 +121,9 @@ namespace RailwayApp.Migrations
 
                     b.Property<Guid?>("RouteId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SeatsCount")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TicketCost")
                         .HasColumnType("decimal(18,2)");
@@ -194,6 +205,10 @@ namespace RailwayApp.Migrations
 
             modelBuilder.Entity("RailwayApp.Models.Order", b =>
                 {
+                    b.HasOne("RailwayApp.Models.Train", "ChangeTrain")
+                        .WithMany()
+                        .HasForeignKey("ChangeTrainId");
+
                     b.HasOne("RailwayApp.Models.Route", "OrderRoute")
                         .WithMany()
                         .HasForeignKey("OrderRouteId")
@@ -205,6 +220,8 @@ namespace RailwayApp.Migrations
                         .HasForeignKey("OrderUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ChangeTrain");
 
                     b.Navigation("OrderRoute");
 

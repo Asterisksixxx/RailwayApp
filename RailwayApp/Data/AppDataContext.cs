@@ -15,6 +15,5 @@ namespace RailwayApp.Data
         public DbSet<Train> Trains { get; set; }
         public DbSet<Route> Routes { get; set; }
         public DbSet<Station> Stations { get; set; }
-        
     }
 }

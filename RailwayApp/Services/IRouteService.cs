@@ -17,7 +17,7 @@ namespace RailwayApp.Services
         Task CreateAsync(Route route);
         Task CreateAsync(Route_View routeView);
         Task UpdateAsync(Route route);
-
+        Task<Route> GetAsy(Guid id);
     }
 
     public class RouteService : IRouteService
@@ -40,6 +40,10 @@ namespace RailwayApp.Services
         public async Task<Route> GetAsync(Guid id)
         {
             return await Task.Run(() => _appDataContext.Routes.FirstOrDefaultAsync(o => o.Id == id));
+        }
+        public async Task<Route> GetAsy(Guid id)
+        {
+            return await Task.Run(() => _appDataContext.Routes.Include(route =>route.TrainsList ).FirstOrDefaultAsync(o => o.Id == id));
         }
 
         public Task Delete(Guid id)

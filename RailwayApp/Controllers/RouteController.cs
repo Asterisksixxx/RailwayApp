@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using RailwayApp.Data;
 using RailwayApp.Services;
 using RailwayApp.ViewModels;
 
@@ -25,7 +22,6 @@ namespace RailwayApp.Controllers
         [HttpGet]
         public async Task<IActionResult>  Index()
         {
-
             return View(await _routeService.GetAsync());
         }
 

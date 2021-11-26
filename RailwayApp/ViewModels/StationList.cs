@@ -6,10 +6,9 @@ using RailwayApp.Models;
 
 namespace RailwayApp.ViewModels
 {
-    public class Route_Train_Station
+    public class StationList
     {
-        public Train Trains { get; set; }
-        public Station Stations { get; set; }
-        public Route Routes { get; set; }
+        public IEnumerable<Station> Stations { get; set; }
+        public Guid CurrentStation { get; set; }
     }
 }
